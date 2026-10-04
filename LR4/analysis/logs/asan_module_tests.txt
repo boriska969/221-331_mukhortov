@@ -1,0 +1,18 @@
+$ make asan
+cmake -S . -B /c/Users/boris/tools/b/an -G Ninja \
+	-DLR4_SANITIZE=ON -DCMAKE_BUILD_TYPE=Debug \
+	-DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: C:/Users/boris/tools/b/an
+cmake --build /c/Users/boris/tools/b/an --parallel 4
+ninja: no work to do.
+ctest --test-dir /c/Users/boris/tools/b/an --output-on-failure
+Test project C:/Users/boris/tools/b/an
+    Start 1: credpolicy_unit_tests
+1/1 Test #1: credpolicy_unit_tests ............   Passed    0.02 sec
+
+100% tests passed out of 1
+
+Total Test time (real) =   0.02 sec
+[exit status: 0]

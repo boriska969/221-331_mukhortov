@@ -1,0 +1,20 @@
+$ make run
+make build
+cmake -S . -B /c/Users/boris/tools/b/lr4 -G Ninja \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: C:/Users/boris/tools/b/lr4
+cmake --build /c/Users/boris/tools/b/lr4 --parallel 4
+ninja: no work to do.
+/c/Users/boris/tools/b/lr4/credcheck samples/records.txt
+[line 1] OK site=https://example.com login=alice password=*****************
+[line 2] OK site=https://bank.example.org login=bob password=**************
+[line 3] WEAK PASSWORD: password is shorter than 12 characters (site=https://mail.example.net)
+[line 4] WEAK PASSWORD: password has no digit (site=https://forum.example.com)
+[line 5] REJECTED: site must start with https:// and contain a host
+[line 6] REJECTED: expected three fields separated by ';'
+[line 7] WEAK PASSWORD: password has a run of identical characters (site=https://vpn.example.com)
+problems found: 5
+[exit status: 0]

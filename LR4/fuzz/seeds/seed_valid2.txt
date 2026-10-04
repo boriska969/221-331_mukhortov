@@ -1,0 +1,1 @@
+https://bank.example.org;bob;Tr0ub4dor&3xyz

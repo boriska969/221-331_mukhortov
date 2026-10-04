@@ -1,0 +1,3 @@
+$ cppcheck --enable=warning,style,performance,portability --std=c++17 analysis/fixed_example.cpp
+Checking analysis\fixed_example.cpp ...
+[exit status: 0]

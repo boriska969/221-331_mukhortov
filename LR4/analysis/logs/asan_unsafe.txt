@@ -1,0 +1,54 @@
+$ clang++ -fsanitize=address,undefined analysis/unsafe_example.cpp && ./unsafe
+analysis/unsafe_example.cpp:20:9: runtime error: index 16 out of bounds for type 'char[16]'
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior analysis/unsafe_example.cpp:20:9 
+=================================================================
+==7532==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x002baf9ff830 at pc 0x7ff76a5315b9 bp 0x002baf9ff780 sp 0x002baf9ff7c8
+WRITE of size 1 at 0x002baf9ff830 thread T0
+    #0 0x7ff76a5315b8 in storeLogin(char const*, unsigned long long) C:/Users/boris/AppData/Local/Packages/Claude_pzs8sxrjxfjjc/LocalCache/Roaming/Claude/scratch-workspaces/ec74d457-fabd-4b1e-a5a5-2f61439d672b/43c86b7e-e4ee-43be-b4f9-f46ebcd934c3/scratch-2026-10-04-e58839/221-331_Lastname/LR4/analysis/unsafe_example.cpp:20:24
+    #1 0x7ff76a53169e in main C:/Users/boris/AppData/Local/Packages/Claude_pzs8sxrjxfjjc/LocalCache/Roaming/Claude/scratch-workspaces/ec74d457-fabd-4b1e-a5a5-2f61439d672b/43c86b7e-e4ee-43be-b4f9-f46ebcd934c3/scratch-2026-10-04-e58839/221-331_Lastname/LR4/analysis/unsafe_example.cpp:29:5
+    #2 0x7ff76a5310fd in __tmainCRTStartup /home/runner/work/llvm-mingw/llvm-mingw/mingw-w64/mingw-w64-crt/build-x86_64/../crt/crtexe.c:236:11
+    #3 0x7ff76a5313b5 in .l_start /home/runner/work/llvm-mingw/llvm-mingw/mingw-w64/mingw-w64-crt/build-x86_64/../crt/crtexe.c:122:9
+    #4 0x7fff91f5cd86  (C:\WINDOWS\System32\KERNEL32.DLL+0x18002cd86)
+    #5 0x7fff9416caeb  (C:\WINDOWS\SYSTEM32\ntdll.dll+0x1800acaeb)
+
+Address 0x002baf9ff830 is located in stack of thread T0 at offset 48 in frame
+    #0 0x7ff76a5313f7 in storeLogin(char const*, unsigned long long) C:/Users/boris/AppData/Local/Packages/Claude_pzs8sxrjxfjjc/LocalCache/Roaming/Claude/scratch-workspaces/ec74d457-fabd-4b1e-a5a5-2f61439d672b/43c86b7e-e4ee-43be-b4f9-f46ebcd934c3/scratch-2026-10-04-e58839/221-331_Lastname/LR4/analysis/unsafe_example.cpp:16
+
+  This frame has 1 object(s):
+    [32, 48) 'buffer' (line 17) <== Memory access at offset 48 overflows this variable
+HINT: this may be a false positive if your program uses some custom stack unwind mechanism, swapcontext or vfork
+      (longjmp, SEH and C++ exceptions *are* supported)
+SUMMARY: AddressSanitizer: stack-buffer-overflow C:/Users/boris/AppData/Local/Packages/Claude_pzs8sxrjxfjjc/LocalCache/Roaming/Claude/scratch-workspaces/ec74d457-fabd-4b1e-a5a5-2f61439d672b/43c86b7e-e4ee-43be-b4f9-f46ebcd934c3/scratch-2026-10-04-e58839/221-331_Lastname/LR4/analysis/unsafe_example.cpp:20:24 in storeLogin(char const*, unsigned long long)
+Shadow bytes around the buggy address:
+  0x002baf9ff580: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x002baf9ff600: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x002baf9ff680: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x002baf9ff700: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x002baf9ff780: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x002baf9ff800: f1 f1 f1 f1 00 00[f3]f3 00 00 00 00 00 00 00 00
+  0x002baf9ff880: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x002baf9ff900: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x002baf9ff980: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x002baf9ffa00: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x002baf9ffa80: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==7532==ABORTING
+exit=1

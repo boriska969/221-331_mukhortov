@@ -1,0 +1,7 @@
+https://example.com;alice;Correct-Horse-42!
+https://bank.example.org;bob;Tr0ub4dor&3xyz
+https://mail.example.net;carol;short1!
+https://forum.example.com;dave;NoDigitsHere!!
+http://legacy.example.com;erin;Correct-Horse-42!
+https://shop.example.com;frank
+https://vpn.example.com;grace;Passsss1!word

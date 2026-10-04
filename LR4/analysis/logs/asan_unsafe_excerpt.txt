@@ -1,0 +1,12 @@
+$ clang++ -fsanitize=address,undefined analysis/unsafe_example.cpp && ./unsafe
+analysis/unsafe_example.cpp:20:9: runtime error: index 16 out of bounds for type 'char[16]'
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior analysis/unsafe_example.cpp:20:9 
+=================================================================
+==7532==ERROR: AddressSanitizer: stack-buffer-overflow on address 0x002baf9ff830 at pc 0x7ff76a5315b9 bp 0x002baf9ff780 sp 0x002baf9ff7c8
+WRITE of size 1 at 0x002baf9ff830 thread T0
+    #0 0x7ff76a5315b8 in storeLogin(char const*, unsigned long long) C:/Users/boris/AppData/Local/Packages/Claude_pzs8sxrjxfjjc/LocalCache/R
+    #1 0x7ff76a53169e in main C:/Users/boris/AppData/Local/Packages/Claude_pzs8sxrjxfjjc/LocalCache/Roaming/Claude/scratch-workspaces/ec74d4
+    #2 0x7ff76a5310fd in __tmainCRTStartup /home/runner/work/llvm-mingw/llvm-mingw/mingw-w64/mingw-w64-crt/build-x86_64/../crt/crtexe.c:236:
+    #3 0x7ff76a5313b5 in .l_start /home/runner/work/llvm-mingw/llvm-mingw/mingw-w64/mingw-w64-crt/build-x86_64/../crt/crtexe.c:122:9
+    #4 0x7fff91f5cd86  (C:\WINDOWS\System32\KERNEL32.DLL+0x18002cd86)
+[exit status: 1]

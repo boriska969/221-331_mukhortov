@@ -1,0 +1,4 @@
+$ cppcheck --enable=warning,style,performance,portability --std=c++17 analysis/unsafe_example.cpp
+Checking analysis\unsafe_example.cpp ...
+analysis\unsafe_example.cpp:20: warning: Either the condition 'length<=sizeof(buffer)' is redundant or the array 'buffer[16]' is accessed at index 16, which is out of bounds. [arrayIndexOutOfBoundsCond]
+[exit status: 0]
