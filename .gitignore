@@ -1,0 +1,25 @@
+# Каталоги сборки и результаты фаззинга (создаются при сборке и запуске)
+build/
+build-*/
+findings/
+
+# Файлы, которые генерируются сборкой и не должны попадать в репозиторий
+CMakeCache.txt
+CMakeFiles/
+_deps/
+cmake_install.cmake
+compile_commands.json
+*.o
+*.obj
+*.exe
+*.dll
+*.lib
+*.exp
+*.pdb
+*.ilk
+*.stash
+
+# Настройки IDE
+.vs/
+.vscode/
+.idea/
