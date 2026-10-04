@@ -1,0 +1,29 @@
+Running main() from C:/Users/boris/tools/b/an/_deps/googletest-src/googletest/src/gtest_main.cc
+[==========] Running 8 tests from 2 test suites.
+[----------] Global test environment set-up.
+[----------] 4 tests from ValidatePasswordTest
+[ RUN      ] ValidatePasswordTest.AcceptsPasswordThatMeetsAllRules
+[       OK ] ValidatePasswordTest.AcceptsPasswordThatMeetsAllRules (0 ms)
+[ RUN      ] ValidatePasswordTest.AcceptsAnotherCompliantPassword
+[       OK ] ValidatePasswordTest.AcceptsAnotherCompliantPassword (0 ms)
+[ RUN      ] ValidatePasswordTest.RejectsPasswordShorterThanMinimum
+[       OK ] ValidatePasswordTest.RejectsPasswordShorterThanMinimum (0 ms)
+[ RUN      ] ValidatePasswordTest.RejectsPasswordWithoutDigit
+[       OK ] ValidatePasswordTest.RejectsPasswordWithoutDigit (0 ms)
+[----------] 4 tests from ValidatePasswordTest (1 ms total)
+
+[----------] 4 tests from ParseRecordLineTest
+[ RUN      ] ParseRecordLineTest.ParsesWellFormedLine
+[       OK ] ParseRecordLineTest.ParsesWellFormedLine (0 ms)
+[ RUN      ] ParseRecordLineTest.TrimsWhitespaceAroundFields
+[       OK ] ParseRecordLineTest.TrimsWhitespaceAroundFields (0 ms)
+[ RUN      ] ParseRecordLineTest.RejectsLineWithMissingField
+[       OK ] ParseRecordLineTest.RejectsLineWithMissingField (0 ms)
+[ RUN      ] ParseRecordLineTest.RejectsNonHttpsSite
+[       OK ] ParseRecordLineTest.RejectsNonHttpsSite (0 ms)
+[----------] 4 tests from ParseRecordLineTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 8 tests from 2 test suites ran. (2 ms total)
+[  PASSED  ] 8 tests.
+[exit status: 0]
