@@ -1,0 +1,67 @@
+# .gitlab-ci.yml - конвейер ЛР4: сборка, модульные тесты, статический и
+# динамический анализ, фаззинг AFL++. Все задачи выполняются в контейнере Ubuntu 24.04
+# и вызывают цели Makefile из каталога LR4, поэтому локальный и CI-запуск совпадают.
+
+stages:
+  - build
+  - unit-tests
+  - static-analysis
+  - dynamic-analysis
+  - fuzz
+
+default:
+  image: ubuntu:24.04
+  before_script:
+    - export DEBIAN_FRONTEND=noninteractive
+    - apt-get update -qq
+    - apt-get install -y -qq clang cmake ninja-build make cppcheck git ca-certificates > /dev/null
+
+# Обычная сборка приложения и тестов. Каталог build передаётся следующим задачам как артефакт.
+build:
+  stage: build
+  script:
+    - cd LR4 && make build
+  artifacts:
+    paths:
+      - LR4/build/
+    expire_in: 1 hour
+
+# Опция "Тестирование": запуск уже собранных тестов без повторной сборки.
+unit-tests:
+  stage: unit-tests
+  needs: [build]
+  script:
+    - cd LR4 && make test
+
+static-analysis:
+  stage: static-analysis
+  script:
+    - cd LR4 && make static
+
+# Динамический анализ: сборка с AddressSanitizer и UndefinedBehaviorSanitizer (компилятор GCC).
+dynamic-analysis:
+  stage: dynamic-analysis
+  before_script:
+    - export DEBIAN_FRONTEND=noninteractive
+    - apt-get update -qq
+    - apt-get install -y -qq g++ libasan8 libubsan1 cmake ninja-build make git ca-certificates > /dev/null
+  script:
+    - cd LR4 && make asan CC_COMPILER=gcc CXX_COMPILER=g++ BUILD_SAN_DIR=build-asan
+
+# Фаззинг AFL++ ограничен по времени (60 с). Каталог findings сохраняется даже при сбое.
+fuzz:
+  stage: fuzz
+  before_script:
+    - export DEBIAN_FRONTEND=noninteractive
+    - apt-get update -qq
+    - apt-get install -y -qq afl++ clang cmake ninja-build make git ca-certificates > /dev/null
+  variables:
+    AFL_I_DONT_CARE_ABOUT_MISSING_CRASHES: "1"
+    AFL_NO_AFFINITY: "1"
+  script:
+    - cd LR4 && make fuzz
+  artifacts:
+    when: always
+    paths:
+      - LR4/findings/
+    expire_in: 1 week

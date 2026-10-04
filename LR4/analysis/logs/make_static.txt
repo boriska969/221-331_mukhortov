@@ -1,0 +1,4 @@
+$ make static
+cppcheck --enable=warning,style,performance,portability --std=c++17 \
+	--error-exitcode=1 --inline-suppr -I include --quiet src app
+[exit status: 0]

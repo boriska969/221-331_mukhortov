@@ -1,0 +1,2 @@
+$ clang++ -fsanitize=address,undefined analysis/fixed_example.cpp && ./fixed
+exit=0

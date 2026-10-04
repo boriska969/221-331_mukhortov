@@ -1,0 +1,18 @@
+$ make build-test
+make build
+cmake -S . -B /c/Users/boris/tools/b/lr4 -G Ninja \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++
+-- Configuring done (0.3s)
+-- Generating done (0.0s)
+-- Build files have been written to: C:/Users/boris/tools/b/lr4
+cmake --build /c/Users/boris/tools/b/lr4 --parallel 4
+ninja: no work to do.
+make test
+ctest --test-dir /c/Users/boris/tools/b/lr4 --output-on-failure
+Test project C:/Users/boris/tools/b/lr4
+    Start 1: credpolicy_unit_tests
+1/1 Test #1: credpolicy_unit_tests ............   Passed    0.01 sec
+100% tests passed out of 1
+Total Test time (real) =   0.01 sec
+[exit status: 0]
