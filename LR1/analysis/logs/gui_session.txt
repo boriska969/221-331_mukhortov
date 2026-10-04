@@ -1,0 +1,9 @@
+controls: pinEdit=984888 searchEdit=1639354 list=1051770
+01 C:\Users\boris\AppData\Roaming\Claude\scratch-workspaces\ec74d457-fabd-4b1e-a5a5-2f61439d672b\43c86b7e-e4ee-43be-b4f9-f46ebcd934c3\scratch-2026-10-04-e58839\221-331_Lastname\LR1\screenshots\01_pin_screen.png (1140x720) printwindow=True
+02 C:\Users\boris\AppData\Roaming\Claude\scratch-workspaces\ec74d457-fabd-4b1e-a5a5-2f61439d672b\43c86b7e-e4ee-43be-b4f9-f46ebcd934c3\scratch-2026-10-04-e58839\221-331_Lastname\LR1\screenshots\02_list_screen.png (1140x720) printwindow=True
+03 C:\Users\boris\AppData\Roaming\Claude\scratch-workspaces\ec74d457-fabd-4b1e-a5a5-2f61439d672b\43c86b7e-e4ee-43be-b4f9-f46ebcd934c3\scratch-2026-10-04-e58839\221-331_Lastname\LR1\screenshots\03_search_screen.png (1140x720) printwindow=True
+04 C:\Users\boris\AppData\Roaming\Claude\scratch-workspaces\ec74d457-fabd-4b1e-a5a5-2f61439d672b\43c86b7e-e4ee-43be-b4f9-f46ebcd934c3\scratch-2026-10-04-e58839\221-331_Lastname\LR1\screenshots\04_reveal_pin_screen.png (1140x720) printwindow=True
+clipboard after password copy matches demo value: True
+05 C:\Users\boris\AppData\Roaming\Claude\scratch-workspaces\ec74d457-fabd-4b1e-a5a5-2f61439d672b\43c86b7e-e4ee-43be-b4f9-f46ebcd934c3\scratch-2026-10-04-e58839\221-331_Lastname\LR1\screenshots\05_password_copied.png (1140x720) printwindow=True
+clipboard after login copy matches demo value: True
+06 C:\Users\boris\AppData\Roaming\Claude\scratch-workspaces\ec74d457-fabd-4b1e-a5a5-2f61439d672b\43c86b7e-e4ee-43be-b4f9-f46ebcd934c3\scratch-2026-10-04-e58839\221-331_Lastname\LR1\screenshots\06_wrong_pin_reveal.png (1140x720) printwindow=True

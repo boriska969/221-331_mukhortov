@@ -1,0 +1,9 @@
+protector started debug-check build with pid=33708
+message boxes owned by the manager: 1
+10 True
+warning dismissed
+protector exited after warning: True
+protector output:
+  ***CreateProcessW() success, pid = 33708
+  ***DebugActiveProcess() success
+  ***PassManager exited, exit code = 0

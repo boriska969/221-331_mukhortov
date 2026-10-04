@@ -1,0 +1,12 @@
+tampered copy: .text VirtualSize=89766, byte at file offset 90789 changed from 0x00 to 0xFF
+07 C:\Users\boris\AppData\Roaming\Claude\scratch-workspaces\ec74d457-fabd-4b1e-a5a5-2f61439d672b\43c86b7e-e4ee-43be-b4f9-f46ebcd934c3\scratch-2026-10-04-e58839\221-331_Lastname\LR1\screenshots\07_tampered_warning.png (1140x720) printwindow=True
+warning dialog dismissed: True
+08 C:\Users\boris\AppData\Roaming\Claude\scratch-workspaces\ec74d457-fabd-4b1e-a5a5-2f61439d672b\43c86b7e-e4ee-43be-b4f9-f46ebcd934c3\scratch-2026-10-04-e58839\221-331_Lastname\LR1\screenshots\08_tampered_locked.png (1140x720) printwindow=True
+protector started manager with pid=17732
+09 C:\Users\boris\AppData\Roaming\Claude\scratch-workspaces\ec74d457-fabd-4b1e-a5a5-2f61439d672b\43c86b7e-e4ee-43be-b4f9-f46ebcd934c3\scratch-2026-10-04-e58839\221-331_Lastname\LR1\screenshots\09_protected_manager.png (1140x720) printwindow=True
+third-party DebugActiveProcess(17732) succeeded=False, GetLastError=87
+protector exited: True
+protector output:
+  ***CreateProcessW() success, pid = 17732
+  ***DebugActiveProcess() success
+  ***PassManager exited, exit code = 4294967295
