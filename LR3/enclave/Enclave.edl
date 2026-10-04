@@ -1,0 +1,13 @@
+// Enclave.edl
+// Описание интерфейса анклава ЛР3 (Enclave Definition Language).
+// Trusted-часть: функция, которая возвращает строку таблицы по номеру (выполняется внутри анклава).
+// Untrusted-часть пуста: анклав не вызывает функции основного приложения.
+enclave {
+    trusted {
+        public int ecall_get_row(int row,
+                                 [out, size = buf_len] char* buf,
+                                 size_t buf_len);
+    };
+    untrusted {
+    };
+};

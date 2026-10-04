@@ -1,0 +1,12 @@
+$ table_app 0
+row 0: alice.morgan;Vq7#mLx2!tRp
+[exit status: 0]
+$ table_app 3
+row 3: j.petrova;Hd5*nRt2%Woq
+[exit status: 0]
+$ table_app 9
+WARNING: row 9 does not exist (table has 5 rows)
+[exit status: 1]
+$ table_app abc
+WARNING: 'abc' is not a row number
+[exit status: 1]
