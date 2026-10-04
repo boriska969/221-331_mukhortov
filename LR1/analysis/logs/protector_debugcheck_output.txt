@@ -1,0 +1,3 @@
+***CreateProcessW() success, pid = 33708
+***DebugActiveProcess() success
+***PassManager exited, exit code = 0
