@@ -1,0 +1,2 @@
+$ clang -std=c11 -Wall -Wextra -o table_app.exe stage1/table_app.c
+[exit status: 0]

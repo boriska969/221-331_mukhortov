@@ -1,0 +1,2 @@
+$ cmake -S LR2 -B build -G Ninja -DCMAKE_C_COMPILER=clang && cmake --build build
+[exit status: 0]
