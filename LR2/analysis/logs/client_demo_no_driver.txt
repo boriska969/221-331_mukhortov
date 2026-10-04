@@ -1,0 +1,10 @@
+$ lab2_client.exe write demo/test.lab2ext "Initial plain text"
+written 256 bytes to demo/test.lab2ext
+$ lab2_client.exe demo demo/test.lab2ext
+1) content before modification (demo/test.lab2ext):
+  Initial plain text                                                                                                                                                                                                                                              
+  bytes read: 256
+2) content after write (demo/test.lab2ext):
+  Secret text written by lab2_client                                                                                                                                                                                                                              
+  bytes read: 256
+[exit status: 0]
