@@ -1,0 +1,9 @@
+$ crypto_selftest.exe
+PASS: AES-256 matches FIPS-197 test vector C.3
+PASS: ciphertext differs from plaintext
+PASS: round trip at offset 5 restores the data
+PASS: split I/O (0..36 and 37..99) gives the same ciphertext as one I/O
+PASS: different nonce gives a different keystream
+PASS: different key gives a different keystream
+ALL TESTS PASSED (0 failure(s))
+[exit status: 0]

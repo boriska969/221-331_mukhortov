@@ -1,0 +1,80 @@
+; passthrough.inf
+; INF-файл минифильтра ЛР2 (основан на шаблоне Windows Driver Samples passThrough).
+; Изменения относительно шаблона: секции DefaultInstall/DefaultUninstall приведены к виду
+; из методички (с NTamd64), добавлен LegacyUninstall=1, задана высота (Altitude) 141000
+; из диапазона "FSFilter Encryption" (140000-149999).
+
+[Version]
+Signature   = "$Windows NT$"
+Class       = "ActivityMonitor"
+ClassGuid   = {b86dff51-a31e-4bac-b3f1-8bcb82fd8f5c}
+Provider    = %ManufacturerName%
+DriverVer   = 10/05/2026,1.0.0.0
+CatalogFile = passthrough.cat
+
+[DestinationDirs]
+DefaultDestDir       = 12
+PassThru.DriverFiles = 12                       ; %windir%\System32\drivers
+
+[SourceDisksNames]
+1 = %DiskId1%,,,""
+
+[SourceDisksFiles]
+passthrough.sys = 1,,
+
+[DefaultInstall]
+OptionDesc = %ServiceDescription%
+CopyFiles  = PassThru.DriverFiles
+
+[DefaultInstall.NTamd64]
+OptionDesc = %ServiceDescription%
+CopyFiles  = PassThru.DriverFiles
+
+[DefaultInstall.Services]
+AddService = %ServiceName%,,PassThru.Service
+
+[DefaultInstall.NTamd64.Services]
+AddService = %ServiceName%,,PassThru.Service
+
+[DefaultUninstall]
+DelFiles       = PassThru.DriverFiles
+LegacyUninstall = 1
+
+[DefaultUninstall.NTamd64]
+DelFiles        = PassThru.DriverFiles
+LegacyUninstall = 1
+
+[DefaultUninstall.Services]
+DelService      = %ServiceName%,0x200
+LegacyUninstall = 1
+
+[DefaultUninstall.NTamd64.Services]
+DelService      = %ServiceName%,0x200
+LegacyUninstall = 1
+
+[PassThru.Service]
+DisplayName    = %ServiceName%
+Description    = %ServiceDescription%
+ServiceBinary  = %12%\passthrough.sys
+Dependencies   = "FltMgr"
+ServiceType    = 2                              ; SERVICE_FILE_SYSTEM_DRIVER
+StartType      = 3                              ; SERVICE_DEMAND_START (запуск командой fltmc load)
+ErrorControl   = 1                              ; SERVICE_ERROR_NORMAL
+LoadOrderGroup = "FSFilter Encryption"
+AddReg         = PassThru.AddRegistry
+
+[PassThru.AddRegistry]
+HKR,,"DebugFlags",0x00010001,0x0
+HKR,"Instances","DefaultInstance",0x00000000,%DefaultInstance%
+HKR,"Instances\"%Instance1.Name%,"Altitude",0x00000000,%Instance1.Altitude%
+HKR,"Instances\"%Instance1.Name%,"Flags",0x00010001,%Instance1.Flags%
+
+[Strings]
+ManufacturerName   = "Student LR2"
+ServiceDescription = "LR2 transparent encryption minifilter (lab2ext)"
+ServiceName        = "PassThrough"
+DiskId1            = "LR2 installation disk"
+DefaultInstance    = "PassThrough Encryption Instance"
+Instance1.Name     = "PassThrough Encryption Instance"
+Instance1.Altitude = "141000"
+Instance1.Flags    = 0x0
