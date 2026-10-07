@@ -1,7 +1,7 @@
 /* passthrough.c
  * Минифильтр-драйвер ЛР2: прозрачное шифрование дискового ввода-вывода.
  *
- * Драйвер регистрируется в Filter Manager (FltMgr) на высоте 141000 (диапазон "Encryption").
+ * Драйвер регистрируется в Filter Manager (FltMgr) на высоте 141050 (диапазон "Encryption").
  *   - IRP_MJ_WRITE: предоперационный обработчик PtPreOperationPassThrough шифрует буфер записи
  *     до того, как данные попадут на диск;
  *   - IRP_MJ_READ: постоперационный обработчик PtPostOperationPassThrough расшифровывает данные,
