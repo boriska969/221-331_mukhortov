@@ -4,12 +4,18 @@ rem Запускать от имени администратора внутри
 net session >nul 2>&1
 if errorlevel 1 (
     echo Запустите этот файл от имени администратора.
+    echo.
+    pause
     exit /b 1
 )
 fltmc unload PassThrough
 if errorlevel 1 (
     echo Не удалось выгрузить драйвер. Возможно, он уже выгружен.
+    echo.
+    pause
     exit /b 1
 )
 echo Драйвер PassThrough выгружен.
 fltmc filters
+echo.
+pause

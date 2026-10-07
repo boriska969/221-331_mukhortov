@@ -1,0 +1,53 @@
+Тестовая ВМ LR2-Win10, драйвер PassThrough установлен (sc query: FILE_SYSTEM_DRIVER,
+ImagePath system32\DRIVERS\passthrough.sys), testsigning=Yes.
+
+$ fltmc load PassThrough
+$ fltmc filters
+Имя фильтра                Число экземпляров  Высота    Кадр
+--------------------------  -----------------  --------  ----
+...
+PassThrough                 5                  141050    0
+...
+
+Часть 1: прозрачность при загруженном драйвере (приложение не видит шифрования)
+---------------------------------------------------------------------------
+$ lab2_client.exe write C:\lr2test\test.lab2ext "Initial plain text"
+written 256 bytes to C:\lr2test\test.lab2ext
+
+$ lab2_client.exe demo C:\lr2test\test.lab2ext
+1) content before modification (C:\lr2test\test.lab2ext):
+  Initial plain text
+  bytes read: 256
+2) content after write (C:\lr2test\test.lab2ext):
+  Secret text written by lab2_client
+  bytes read: 256
+
+Вывод идентичен эталонному запуску без драйвера (analysis/logs/client_demo_no_driver.txt) -
+то есть фильтр действительно прозрачен для приложения: запись и чтение дают исходный текст.
+
+Часть 2: доказательство, что на диске реально лежит шифротекст
+---------------------------------------------------------------------------
+$ fltmc unload PassThrough
+
+$ lab2_client.exe show C:\lr2test\test.lab2ext
+file content (C:\lr2test\test.lab2ext):
+  ...YI"=...[j..j.W./....c..J....?8.&.`#x...........RiO.g....K>%.4..]X+........#B.....g|J..Z2..X...W!..m.K.:.@...)......9.:....II..^4.........]..:....YJ...)t.6..M.......[$N.z.r.>*R...B[.......a...T.Y.N...X(^]A........e.?...y.k.2R.......cS........PA..U.6.;
+  bytes read: 256
+
+Без фильтра show_file() выводит практически одни непечатаемые байты (точки) - это
+AES-256 шифротекст, физически записанный на диск PreOperation-обработчиком PtPreOperationPassThrough.
+Исходный текст "Secret text written by lab2_client" на диске не хранится в открытом виде.
+
+$ fltmc load PassThrough
+
+$ lab2_client.exe show C:\lr2test\test.lab2ext
+file content (C:\lr2test\test.lab2ext):
+  Secret text written by lab2_client
+  bytes read: 256
+
+После повторной загрузки фильтра PostOperation-обработчик PtPostOperationPassThrough снова
+расшифровывает те же байты в исходный текст - ключ/nonce детерминированы (заданы константами,
+см. README "Допущения"), поэтому результат воспроизводим между перезагрузками фильтра.
+
+Скриншот консоли: screenshots/lr2_driver_unload_ciphertext.png
+[exit status: 0]

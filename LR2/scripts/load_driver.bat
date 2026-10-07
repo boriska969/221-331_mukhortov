@@ -4,11 +4,15 @@ rem Запускать от имени администратора внутри
 net session >nul 2>&1
 if errorlevel 1 (
     echo Запустите этот файл от имени администратора.
+    echo.
+    pause
     exit /b 1
 )
 fltmc load PassThrough
 if errorlevel 1 (
     echo Не удалось загрузить драйвер. Проверьте установку INF и подпись (testsigning).
+    echo.
+    pause
     exit /b 1
 )
 echo.
@@ -17,3 +21,5 @@ fltmc filters
 echo.
 echo Экземпляры фильтра на томах:
 fltmc instances
+echo.
+pause

@@ -12,8 +12,8 @@ ECB, поэтому работают любые размеры буферов и
 | `third_party/tiny-aes-c/` | aes.c / aes.h (The Unlicense), в aes.h включён AES-256 | собрано и проверено |
 | `tests/crypto_selftest.c` | 6 проверок: вектор FIPS-197, обратимость, согласованность частичных операций | 6 из 6 PASS |
 | `app/lab2_client.c` | клиент: `show`, `write`, `demo` над файлом фиксированного размера (256 байт) | собрано и запущено без драйвера |
-| `driver/` (`passThrough.vcxproj`, `passThrough.sln`, `passthrough.c`, `.h`, `.inf`, `.rc`) | минифильтр: PreOperation для WRITE, PostOperation для READ, высота 141050 | собран (Debug x64, WDK 10.0.26100.6584), **не загружен** (нужна ВМ) |
-| `scripts/*.bat` | загрузка, выгрузка драйвера (`fltmc load/unload PassThrough`) | не запускались (нужны права администратора в ВМ) |
+| `driver/` (`passThrough.vcxproj`, `passThrough.sln`, `passthrough.c`, `.h`, `.inf`, `.rc`) | минифильтр: PreOperation для WRITE, PostOperation для READ, высота 141050 | собран (Debug x64, WDK 10.0.26100.6584), **загружен и проверен в ВМ LR2-Win10** |
+| `scripts/*.bat` | загрузка, выгрузка драйвера (`fltmc load/unload PassThrough`) | выполнены в ВМ от имени администратора, успешно |
 
 ## Сборка и проверка пользовательской части
 
@@ -30,6 +30,18 @@ build\bin\crypto_selftest.exe
 3. Результат в `driver\x64\Debug\passThrough\`: `passThrough.sys`, `passThrough.inf`, `passthrough.cat`. Каталог `x64\` в git не попадает (см. `driver\.gitignore`).
 4. Известное предупреждение сборки: проверка INF не находит `InfVerif.dll` в WDK 10.0.26100.6584, но код выхода сборки 0. Предупреждения C4005 и C4083 отключены в проекте: заголовки MSVC `<stdint.h>` и `<string.h>` конфликтуют с заголовками WDK для режима ядра.
 5. В ВМ от имени администратора: установить INF, затем `scripts\load_driver.bat` и `lab2_client.exe demo <файл.lab2ext>`.
+
+## Результаты проверки в ВМ (LR2-Win10)
+
+- `sc query PassThrough` - служба зарегистрирована, `fltmc load PassThrough` - без ошибок,
+  `fltmc filters` показывает `PassThrough` на высоте 141050 с 5 экземплярами (подключён ко всем томам).
+- `lab2_client.exe demo test.lab2ext` при загруженном драйвере даёт тот же результат, что и
+  эталонный запуск без драйвера (`analysis/logs/client_demo_no_driver.txt`) - фильтр прозрачен
+  для приложения.
+- Доказательство шифрования на диске: при `fltmc unload PassThrough` повторный `lab2_client.exe show`
+  того же файла возвращает нечитаемые байты (AES-шифротекст), после `fltmc load PassThrough` -
+  снова корректный текст. Подробности и точный вывод консоли:
+  `analysis/logs/client_demo_with_driver.txt`, скриншот `screenshots/lr2_driver_unload_ciphertext.png`.
 
 ## Допущения
 
