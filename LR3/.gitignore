@@ -1,0 +1,9 @@
+build/
+.vs/
+*.user
+*.pem
+*.key
+app/Enclave_u.c
+app/Enclave_u.h
+enclave/Enclave_t.c
+enclave/Enclave_t.h

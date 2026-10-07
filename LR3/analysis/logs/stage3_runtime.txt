@@ -1,0 +1,30 @@
+Input: 0
+row 0: alice.morgan;Vq7#mLx2!tRp
+Exit code: 0
+Input: 1
+row 1: bkaramov;Krt9$wYe4@Lzn
+Exit code: 0
+Input: 2
+row 2: night_owl_77;Plm3&zQe8?Vna
+Exit code: 0
+Input: 3
+row 3: j.petrova;Hd5*nRt2%Woq
+Exit code: 0
+Input: 4
+row 4: dev-team-01;Zx8!cVb4#Mkl
+Exit code: 0
+Input: -1
+WARNING: row -1 does not exist or does not fit the buffer
+Exit code: 1
+Input: 5
+WARNING: row 5 does not exist or does not fit the buffer
+Exit code: 1
+Input: abc
+WARNING: 'abc' is not a row number
+Exit code: 1
+Input: 2147483648
+WARNING: row 2147483647 does not exist or does not fit the buffer
+Exit code: 1
+No argument:
+usage: app <row number>
+Exit code: 1

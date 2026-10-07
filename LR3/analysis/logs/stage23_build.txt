@@ -1,0 +1,19 @@
+  Generate enclave test key
+  enclave.c
+  Enclave.vcxproj -> C:\Users\boris\Documents\Codex\2026-10-07\new-chat\outputs\LR3\build\bin\Enclave.dll
+  sign the enclave
+  The required memory is 0x17a000.
+  Succeed.
+  <EnclaveConfiguration>
+      <ProdID>0</ProdID>
+      <ISVSVN>0</ISVSVN>
+      <StackMaxSize>0x40000</StackMaxSize>
+      <HeapMaxSize>0x100000</HeapMaxSize>
+      <TCSNum>1</TCSNum>
+      <TCSPolicy>1</TCSPolicy>
+      <DisableDebug>0</DisableDebug>
+      <MiscSelect>0</MiscSelect>
+      <MiscMask>0xFFFFFFFF</MiscMask>
+  </EnclaveConfiguration>
+  app.c
+  app.vcxproj -> C:\Users\boris\Documents\Codex\2026-10-07\new-chat\outputs\LR3\build\bin\app.exe

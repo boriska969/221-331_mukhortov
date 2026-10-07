@@ -1,0 +1,272 @@
+[
+  {
+    "file": "table_app.exe",
+    "text": "alice.morgan;Vq7#mLx2!tRp",
+    "offset": 36832,
+    "hex": "0x00008FE0"
+  },
+  {
+    "file": "table_app.exe",
+    "text": "alice.morgan",
+    "offset": 36832,
+    "hex": "0x00008FE0"
+  },
+  {
+    "file": "table_app.exe",
+    "text": "Vq7#mLx2!tRp",
+    "offset": 36845,
+    "hex": "0x00008FED"
+  },
+  {
+    "file": "table_app.exe",
+    "text": "bkaramov;Krt9$wYe4@Lzn",
+    "offset": 36864,
+    "hex": "0x00009000"
+  },
+  {
+    "file": "table_app.exe",
+    "text": "bkaramov",
+    "offset": 36864,
+    "hex": "0x00009000"
+  },
+  {
+    "file": "table_app.exe",
+    "text": "Krt9$wYe4@Lzn",
+    "offset": 36873,
+    "hex": "0x00009009"
+  },
+  {
+    "file": "table_app.exe",
+    "text": "night_owl_77;Plm3&zQe8?Vna",
+    "offset": 36896,
+    "hex": "0x00009020"
+  },
+  {
+    "file": "table_app.exe",
+    "text": "night_owl_77",
+    "offset": 36896,
+    "hex": "0x00009020"
+  },
+  {
+    "file": "table_app.exe",
+    "text": "Plm3&zQe8?Vna",
+    "offset": 36909,
+    "hex": "0x0000902D"
+  },
+  {
+    "file": "table_app.exe",
+    "text": "j.petrova;Hd5*nRt2%Woq",
+    "offset": 36928,
+    "hex": "0x00009040"
+  },
+  {
+    "file": "table_app.exe",
+    "text": "j.petrova",
+    "offset": 36928,
+    "hex": "0x00009040"
+  },
+  {
+    "file": "table_app.exe",
+    "text": "Hd5*nRt2%Woq",
+    "offset": 36938,
+    "hex": "0x0000904A"
+  },
+  {
+    "file": "table_app.exe",
+    "text": "dev-team-01;Zx8!cVb4#Mkl",
+    "offset": 36960,
+    "hex": "0x00009060"
+  },
+  {
+    "file": "table_app.exe",
+    "text": "dev-team-01",
+    "offset": 36960,
+    "hex": "0x00009060"
+  },
+  {
+    "file": "table_app.exe",
+    "text": "Zx8!cVb4#Mkl",
+    "offset": 36972,
+    "hex": "0x0000906C"
+  },
+  {
+    "file": "app.exe",
+    "text": "alice.morgan;Vq7#mLx2!tRp",
+    "offset": -1,
+    "hex": "NOT FOUND"
+  },
+  {
+    "file": "app.exe",
+    "text": "alice.morgan",
+    "offset": -1,
+    "hex": "NOT FOUND"
+  },
+  {
+    "file": "app.exe",
+    "text": "Vq7#mLx2!tRp",
+    "offset": -1,
+    "hex": "NOT FOUND"
+  },
+  {
+    "file": "app.exe",
+    "text": "bkaramov;Krt9$wYe4@Lzn",
+    "offset": -1,
+    "hex": "NOT FOUND"
+  },
+  {
+    "file": "app.exe",
+    "text": "bkaramov",
+    "offset": -1,
+    "hex": "NOT FOUND"
+  },
+  {
+    "file": "app.exe",
+    "text": "Krt9$wYe4@Lzn",
+    "offset": -1,
+    "hex": "NOT FOUND"
+  },
+  {
+    "file": "app.exe",
+    "text": "night_owl_77;Plm3&zQe8?Vna",
+    "offset": -1,
+    "hex": "NOT FOUND"
+  },
+  {
+    "file": "app.exe",
+    "text": "night_owl_77",
+    "offset": -1,
+    "hex": "NOT FOUND"
+  },
+  {
+    "file": "app.exe",
+    "text": "Plm3&zQe8?Vna",
+    "offset": -1,
+    "hex": "NOT FOUND"
+  },
+  {
+    "file": "app.exe",
+    "text": "j.petrova;Hd5*nRt2%Woq",
+    "offset": -1,
+    "hex": "NOT FOUND"
+  },
+  {
+    "file": "app.exe",
+    "text": "j.petrova",
+    "offset": -1,
+    "hex": "NOT FOUND"
+  },
+  {
+    "file": "app.exe",
+    "text": "Hd5*nRt2%Woq",
+    "offset": -1,
+    "hex": "NOT FOUND"
+  },
+  {
+    "file": "app.exe",
+    "text": "dev-team-01;Zx8!cVb4#Mkl",
+    "offset": -1,
+    "hex": "NOT FOUND"
+  },
+  {
+    "file": "app.exe",
+    "text": "dev-team-01",
+    "offset": -1,
+    "hex": "NOT FOUND"
+  },
+  {
+    "file": "app.exe",
+    "text": "Zx8!cVb4#Mkl",
+    "offset": -1,
+    "hex": "NOT FOUND"
+  },
+  {
+    "file": "Enclave.signed.dll",
+    "text": "alice.morgan;Vq7#mLx2!tRp",
+    "offset": 176640,
+    "hex": "0x0002B200"
+  },
+  {
+    "file": "Enclave.signed.dll",
+    "text": "alice.morgan",
+    "offset": 176640,
+    "hex": "0x0002B200"
+  },
+  {
+    "file": "Enclave.signed.dll",
+    "text": "Vq7#mLx2!tRp",
+    "offset": 176653,
+    "hex": "0x0002B20D"
+  },
+  {
+    "file": "Enclave.signed.dll",
+    "text": "bkaramov;Krt9$wYe4@Lzn",
+    "offset": 176672,
+    "hex": "0x0002B220"
+  },
+  {
+    "file": "Enclave.signed.dll",
+    "text": "bkaramov",
+    "offset": 176672,
+    "hex": "0x0002B220"
+  },
+  {
+    "file": "Enclave.signed.dll",
+    "text": "Krt9$wYe4@Lzn",
+    "offset": 176681,
+    "hex": "0x0002B229"
+  },
+  {
+    "file": "Enclave.signed.dll",
+    "text": "night_owl_77;Plm3&zQe8?Vna",
+    "offset": 176696,
+    "hex": "0x0002B238"
+  },
+  {
+    "file": "Enclave.signed.dll",
+    "text": "night_owl_77",
+    "offset": 176696,
+    "hex": "0x0002B238"
+  },
+  {
+    "file": "Enclave.signed.dll",
+    "text": "Plm3&zQe8?Vna",
+    "offset": 176709,
+    "hex": "0x0002B245"
+  },
+  {
+    "file": "Enclave.signed.dll",
+    "text": "j.petrova;Hd5*nRt2%Woq",
+    "offset": 176728,
+    "hex": "0x0002B258"
+  },
+  {
+    "file": "Enclave.signed.dll",
+    "text": "j.petrova",
+    "offset": 176728,
+    "hex": "0x0002B258"
+  },
+  {
+    "file": "Enclave.signed.dll",
+    "text": "Hd5*nRt2%Woq",
+    "offset": 176738,
+    "hex": "0x0002B262"
+  },
+  {
+    "file": "Enclave.signed.dll",
+    "text": "dev-team-01;Zx8!cVb4#Mkl",
+    "offset": 176752,
+    "hex": "0x0002B270"
+  },
+  {
+    "file": "Enclave.signed.dll",
+    "text": "dev-team-01",
+    "offset": 176752,
+    "hex": "0x0002B270"
+  },
+  {
+    "file": "Enclave.signed.dll",
+    "text": "Zx8!cVb4#Mkl",
+    "offset": 176764,
+    "hex": "0x0002B27C"
+  }
+]

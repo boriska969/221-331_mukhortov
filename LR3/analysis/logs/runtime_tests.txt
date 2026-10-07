@@ -1,0 +1,91 @@
+> table_app.exe 0
+row 0: alice.morgan;Vq7#mLx2!tRp
+exit=0; PASS
+> table_app.exe 1
+row 1: bkaramov;Krt9$wYe4@Lzn
+exit=0; PASS
+> table_app.exe 2
+row 2: night_owl_77;Plm3&zQe8?Vna
+exit=0; PASS
+> table_app.exe 3
+row 3: j.petrova;Hd5*nRt2%Woq
+exit=0; PASS
+> table_app.exe 4
+row 4: dev-team-01;Zx8!cVb4#Mkl
+exit=0; PASS
+> table_app.exe -1
+WARNING: row -1 does not exist (table has 5 rows)
+exit=1; PASS
+> table_app.exe 5
+WARNING: row 5 does not exist (table has 5 rows)
+exit=1; PASS
+> table_app.exe 9
+WARNING: row 9 does not exist (table has 5 rows)
+exit=1; PASS
+> table_app.exe abc
+WARNING: 'abc' is not a row number
+exit=1; PASS
+> table_app.exe 1x
+WARNING: '1x' is not a row number
+exit=1; PASS
+> table_app.exe 2147483648
+WARNING: '2147483648' is not a row number
+exit=1; PASS
+> table_app.exe -2147483649
+WARNING: '-2147483649' is not a row number
+exit=1; PASS
+> table_app.exe 99999999999999999999999999
+WARNING: '99999999999999999999999999' is not a row number
+exit=1; PASS
+> table_app.exe 
+usage: table_app <row number>
+exit=1; PASS
+> table_app.exe 0 1
+usage: table_app <row number>
+exit=1; PASS
+> app.exe 0
+row 0: alice.morgan;Vq7#mLx2!tRp
+exit=0; PASS
+> app.exe 1
+row 1: bkaramov;Krt9$wYe4@Lzn
+exit=0; PASS
+> app.exe 2
+row 2: night_owl_77;Plm3&zQe8?Vna
+exit=0; PASS
+> app.exe 3
+row 3: j.petrova;Hd5*nRt2%Woq
+exit=0; PASS
+> app.exe 4
+row 4: dev-team-01;Zx8!cVb4#Mkl
+exit=0; PASS
+> app.exe -1
+WARNING: row -1 does not exist or does not fit the buffer
+exit=1; PASS
+> app.exe 5
+WARNING: row 5 does not exist or does not fit the buffer
+exit=1; PASS
+> app.exe 9
+WARNING: row 9 does not exist or does not fit the buffer
+exit=1; PASS
+> app.exe abc
+WARNING: 'abc' is not a row number
+exit=1; PASS
+> app.exe 1x
+WARNING: '1x' is not a row number
+exit=1; PASS
+> app.exe 2147483648
+WARNING: '2147483648' is not a row number
+exit=1; PASS
+> app.exe -2147483649
+WARNING: '-2147483649' is not a row number
+exit=1; PASS
+> app.exe 99999999999999999999999999
+WARNING: '99999999999999999999999999' is not a row number
+exit=1; PASS
+> app.exe 
+usage: app <row number>
+exit=1; PASS
+> app.exe 0 1
+usage: app <row number>
+exit=1; PASS
+PASS: 30/30 runtime checks

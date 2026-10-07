@@ -8,6 +8,8 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <errno.h>
+#include <limits.h>
 
 /* Имитация защищаемого хранилища: учётные записи в виде строк "логин;пароль".
  * Записи выдуманные. */
@@ -44,8 +46,9 @@ int main(int argc, char* argv[])
         printf("usage: table_app <row number>\n");
         return 1;
     }
+    errno = 0;
     row = strtol(argv[1], &end, 10);
-    if (end == argv[1] || *end != '\0') {
+    if (end == argv[1] || *end != '\0' || errno == ERANGE || row < INT_MIN || row > INT_MAX) {
         printf("WARNING: '%s' is not a row number\n", argv[1]);
         return 1;
     }

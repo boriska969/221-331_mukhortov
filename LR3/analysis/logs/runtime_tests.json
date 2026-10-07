@@ -1,0 +1,212 @@
+[
+  {
+    "program": "table_app.exe",
+    "arguments": "0",
+    "exit": 0,
+    "passed": true,
+    "output": "row 0: alice.morgan;Vq7#mLx2!tRp"
+  },
+  {
+    "program": "table_app.exe",
+    "arguments": "1",
+    "exit": 0,
+    "passed": true,
+    "output": "row 1: bkaramov;Krt9$wYe4@Lzn"
+  },
+  {
+    "program": "table_app.exe",
+    "arguments": "2",
+    "exit": 0,
+    "passed": true,
+    "output": "row 2: night_owl_77;Plm3&zQe8?Vna"
+  },
+  {
+    "program": "table_app.exe",
+    "arguments": "3",
+    "exit": 0,
+    "passed": true,
+    "output": "row 3: j.petrova;Hd5*nRt2%Woq"
+  },
+  {
+    "program": "table_app.exe",
+    "arguments": "4",
+    "exit": 0,
+    "passed": true,
+    "output": "row 4: dev-team-01;Zx8!cVb4#Mkl"
+  },
+  {
+    "program": "table_app.exe",
+    "arguments": "-1",
+    "exit": 1,
+    "passed": true,
+    "output": "WARNING: row -1 does not exist (table has 5 rows)"
+  },
+  {
+    "program": "table_app.exe",
+    "arguments": "5",
+    "exit": 1,
+    "passed": true,
+    "output": "WARNING: row 5 does not exist (table has 5 rows)"
+  },
+  {
+    "program": "table_app.exe",
+    "arguments": "9",
+    "exit": 1,
+    "passed": true,
+    "output": "WARNING: row 9 does not exist (table has 5 rows)"
+  },
+  {
+    "program": "table_app.exe",
+    "arguments": "abc",
+    "exit": 1,
+    "passed": true,
+    "output": "WARNING: 'abc' is not a row number"
+  },
+  {
+    "program": "table_app.exe",
+    "arguments": "1x",
+    "exit": 1,
+    "passed": true,
+    "output": "WARNING: '1x' is not a row number"
+  },
+  {
+    "program": "table_app.exe",
+    "arguments": "2147483648",
+    "exit": 1,
+    "passed": true,
+    "output": "WARNING: '2147483648' is not a row number"
+  },
+  {
+    "program": "table_app.exe",
+    "arguments": "-2147483649",
+    "exit": 1,
+    "passed": true,
+    "output": "WARNING: '-2147483649' is not a row number"
+  },
+  {
+    "program": "table_app.exe",
+    "arguments": "99999999999999999999999999",
+    "exit": 1,
+    "passed": true,
+    "output": "WARNING: '99999999999999999999999999' is not a row number"
+  },
+  {
+    "program": "table_app.exe",
+    "arguments": "",
+    "exit": 1,
+    "passed": true,
+    "output": "usage: table_app <row number>"
+  },
+  {
+    "program": "table_app.exe",
+    "arguments": "0 1",
+    "exit": 1,
+    "passed": true,
+    "output": "usage: table_app <row number>"
+  },
+  {
+    "program": "app.exe",
+    "arguments": "0",
+    "exit": 0,
+    "passed": true,
+    "output": "row 0: alice.morgan;Vq7#mLx2!tRp"
+  },
+  {
+    "program": "app.exe",
+    "arguments": "1",
+    "exit": 0,
+    "passed": true,
+    "output": "row 1: bkaramov;Krt9$wYe4@Lzn"
+  },
+  {
+    "program": "app.exe",
+    "arguments": "2",
+    "exit": 0,
+    "passed": true,
+    "output": "row 2: night_owl_77;Plm3&zQe8?Vna"
+  },
+  {
+    "program": "app.exe",
+    "arguments": "3",
+    "exit": 0,
+    "passed": true,
+    "output": "row 3: j.petrova;Hd5*nRt2%Woq"
+  },
+  {
+    "program": "app.exe",
+    "arguments": "4",
+    "exit": 0,
+    "passed": true,
+    "output": "row 4: dev-team-01;Zx8!cVb4#Mkl"
+  },
+  {
+    "program": "app.exe",
+    "arguments": "-1",
+    "exit": 1,
+    "passed": true,
+    "output": "WARNING: row -1 does not exist or does not fit the buffer"
+  },
+  {
+    "program": "app.exe",
+    "arguments": "5",
+    "exit": 1,
+    "passed": true,
+    "output": "WARNING: row 5 does not exist or does not fit the buffer"
+  },
+  {
+    "program": "app.exe",
+    "arguments": "9",
+    "exit": 1,
+    "passed": true,
+    "output": "WARNING: row 9 does not exist or does not fit the buffer"
+  },
+  {
+    "program": "app.exe",
+    "arguments": "abc",
+    "exit": 1,
+    "passed": true,
+    "output": "WARNING: 'abc' is not a row number"
+  },
+  {
+    "program": "app.exe",
+    "arguments": "1x",
+    "exit": 1,
+    "passed": true,
+    "output": "WARNING: '1x' is not a row number"
+  },
+  {
+    "program": "app.exe",
+    "arguments": "2147483648",
+    "exit": 1,
+    "passed": true,
+    "output": "WARNING: '2147483648' is not a row number"
+  },
+  {
+    "program": "app.exe",
+    "arguments": "-2147483649",
+    "exit": 1,
+    "passed": true,
+    "output": "WARNING: '-2147483649' is not a row number"
+  },
+  {
+    "program": "app.exe",
+    "arguments": "99999999999999999999999999",
+    "exit": 1,
+    "passed": true,
+    "output": "WARNING: '99999999999999999999999999' is not a row number"
+  },
+  {
+    "program": "app.exe",
+    "arguments": "",
+    "exit": 1,
+    "passed": true,
+    "output": "usage: app <row number>"
+  },
+  {
+    "program": "app.exe",
+    "arguments": "0 1",
+    "exit": 1,
+    "passed": true,
+    "output": "usage: app <row number>"
+  }
+]

@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.37627.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "app", "app\app.vcxproj", "{A62DD3A9-DFEB-465D-B51B-8964EE079826}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F21D80DA-C4A4-41BC-B420-8FC8A19BBD8A} = {F21D80DA-C4A4-41BC-B420-8FC8A19BBD8A}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Enclave", "Enclave\Enclave.vcxproj", "{F21D80DA-C4A4-41BC-B420-8FC8A19BBD8A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Simulation|x64 = Simulation|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A62DD3A9-DFEB-465D-B51B-8964EE079826}.Simulation|x64.ActiveCfg = Simulation|x64
+		{A62DD3A9-DFEB-465D-B51B-8964EE079826}.Simulation|x64.Build.0 = Simulation|x64
+		{F21D80DA-C4A4-41BC-B420-8FC8A19BBD8A}.Simulation|x64.ActiveCfg = Simulation|x64
+		{F21D80DA-C4A4-41BC-B420-8FC8A19BBD8A}.Simulation|x64.Build.0 = Simulation|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5F331E3B-7D08-4F4D-92E7-205F454CEF28}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,48 @@
+table_app.exe SHA256=19A171E8201738DACB28C80CB3510A8C1D2AEAE891EA5C2DAEA1AD4D39B2A204
+0x00008FE0: alice.morgan;Vq7#mLx2!tRp
+0x00008FE0: alice.morgan
+0x00008FED: Vq7#mLx2!tRp
+0x00009000: bkaramov;Krt9$wYe4@Lzn
+0x00009000: bkaramov
+0x00009009: Krt9$wYe4@Lzn
+0x00009020: night_owl_77;Plm3&zQe8?Vna
+0x00009020: night_owl_77
+0x0000902D: Plm3&zQe8?Vna
+0x00009040: j.petrova;Hd5*nRt2%Woq
+0x00009040: j.petrova
+0x0000904A: Hd5*nRt2%Woq
+0x00009060: dev-team-01;Zx8!cVb4#Mkl
+0x00009060: dev-team-01
+0x0000906C: Zx8!cVb4#Mkl
+app.exe SHA256=49AA061C5269F9F2255C01C982549CB2E89EA4F173C316BD34B7F013B57A9C39
+NOT FOUND: alice.morgan;Vq7#mLx2!tRp
+NOT FOUND: alice.morgan
+NOT FOUND: Vq7#mLx2!tRp
+NOT FOUND: bkaramov;Krt9$wYe4@Lzn
+NOT FOUND: bkaramov
+NOT FOUND: Krt9$wYe4@Lzn
+NOT FOUND: night_owl_77;Plm3&zQe8?Vna
+NOT FOUND: night_owl_77
+NOT FOUND: Plm3&zQe8?Vna
+NOT FOUND: j.petrova;Hd5*nRt2%Woq
+NOT FOUND: j.petrova
+NOT FOUND: Hd5*nRt2%Woq
+NOT FOUND: dev-team-01;Zx8!cVb4#Mkl
+NOT FOUND: dev-team-01
+NOT FOUND: Zx8!cVb4#Mkl
+Enclave.signed.dll SHA256=BA69E90576669A122E33D48E60D50FED7840FA7FB2871B05F952791D5AC688BD
+0x0002B200: alice.morgan;Vq7#mLx2!tRp
+0x0002B200: alice.morgan
+0x0002B20D: Vq7#mLx2!tRp
+0x0002B220: bkaramov;Krt9$wYe4@Lzn
+0x0002B220: bkaramov
+0x0002B229: Krt9$wYe4@Lzn
+0x0002B238: night_owl_77;Plm3&zQe8?Vna
+0x0002B238: night_owl_77
+0x0002B245: Plm3&zQe8?Vna
+0x0002B258: j.petrova;Hd5*nRt2%Woq
+0x0002B258: j.petrova
+0x0002B262: Hd5*nRt2%Woq
+0x0002B270: dev-team-01;Zx8!cVb4#Mkl
+0x0002B270: dev-team-01
+0x0002B27C: Zx8!cVb4#Mkl
