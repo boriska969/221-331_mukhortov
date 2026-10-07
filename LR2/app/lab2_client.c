@@ -1,22 +1,8 @@
-/* lab2_client.c
- * Клиентское приложение ЛР2: читает и записывает файл фиксированного размера.
- * Используются стандартные функции C (fopen_s, fread_s, fwrite, fseek, fclose), которые
- * в Windows обращаются к файлу через ReadFile/WriteFile. Драйвер-фильтр перехватывает
- * эти операции для файлов с расширением .lab2ext.
- *
- * Использование:
- *   lab2_client show  <файл>          - вывести содержимое файла;
- *   lab2_client write <файл> <текст>  - записать текст в файл фиксированного размера;
- *   lab2_client demo  <файл>          - показать, изменить и записать файл, затем показать снова.
- */
 #include <stdio.h>
 #include <string.h>
 
 #define LR2_FILE_SIZE 256
 
-/* Читает весь файл фиксированного размера за одну операцию.
- * path   - путь к файлу; buffer - буфер размером LR2_FILE_SIZE байт.
- * Возвращает число прочитанных байт или -1 при ошибке. */
 static int read_fixed(const char* path, char* buffer)
 {
     FILE* file = NULL;
@@ -34,9 +20,6 @@ static int read_fixed(const char* path, char* buffer)
     return (int)bytesRead;
 }
 
-/* Записывает текст в файл фиксированного размера (дополняется пробелами).
- * path - путь к файлу; text - записываемый текст.
- * Возвращает 0 при успехе, -1 при ошибке. */
 static int write_fixed(const char* path, const char* text)
 {
     char buffer[LR2_FILE_SIZE];
@@ -56,9 +39,6 @@ static int write_fixed(const char* path, const char* text)
     return 0;
 }
 
-/* Выводит содержимое файла в терминал. Непечатаемые байты выводятся как точки,
- * поэтому зашифрованные данные видны как нечитаемые символы.
- * title - заголовок вывода; path - путь к файлу. */
 static void show_file(const char* title, const char* path)
 {
     char buffer[LR2_FILE_SIZE];
@@ -78,7 +58,6 @@ static void show_file(const char* title, const char* path)
     printf("\n  bytes read: %d\n", bytes);
 }
 
-/* Точка входа приложения. Возвращает 0 при успехе, 1 - при ошибке использования или ввода-вывода. */
 int main(int argc, char* argv[])
 {
     if (argc < 3) {

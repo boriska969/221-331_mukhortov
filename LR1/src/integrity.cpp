@@ -1,5 +1,3 @@
-// integrity.cpp
-// Реализация проверок целостности: IsDebuggerPresent() и SHA-256 сегмента .text.
 #include "integrity.hpp"
 
 #include <windows.h>
@@ -11,21 +9,18 @@
 namespace lr1 {
 namespace {
 
-// Маркер эталонного хеша. Константа лежит в секции .rdata (данные), а не в .text (код),
-// поэтому её изменение не затрагивает хешируемый сегмент. Скрипт tools/patch_text_hash.py
-// после сборки заменяет 64 нулевых символа после маркера на SHA-256 сегмента .text.
 const char kReferenceTextHash[] =
     "LR1TEXTHASH:"
     "0000000000000000000000000000000000000000000000000000000000000000"
     ":END";
 
-constexpr std::size_t kMarkerLength = 12;   // длина "LR1TEXTHASH:"
-constexpr std::size_t kHashHexLength = 64;  // SHA-256 в виде hex
+constexpr std::size_t kMarkerLength = 12;
+constexpr std::size_t kHashHexLength = 64;
 
 static_assert(sizeof(kReferenceTextHash) == kMarkerLength + kHashHexLength + 4 + 1,
               "эталонный хеш должен занимать ровно 64 символа после маркера");
 
-}  // namespace
+}
 
 bool isDebuggerAttached() {
     return IsDebuggerPresent() != FALSE;
@@ -49,7 +44,6 @@ bool computeTextSegmentHash(std::string& hexOut, std::string& error) {
         return false;
     }
 
-    // Ищем секцию .text по имени (8 байт, дополненные нулями) и берём её адрес и размер в памяти.
     const IMAGE_SECTION_HEADER* section = IMAGE_FIRST_SECTION(ntHeaders);
     for (WORD index = 0; index < ntHeaders->FileHeader.NumberOfSections; ++index, ++section) {
         if (std::memcmp(section->Name, ".text\0\0\0", IMAGE_SIZEOF_SHORT_NAME) == 0) {
@@ -76,4 +70,4 @@ bool isTextSegmentIntact(std::string& error) {
     return true;
 }
 
-}  // namespace lr1
+}

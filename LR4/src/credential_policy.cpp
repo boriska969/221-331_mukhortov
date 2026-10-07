@@ -1,5 +1,3 @@
-// credential_policy.cpp
-// Реализация политики паролей и разбора строк учётных записей.
 #include "credential_policy.hpp"
 
 #include <cctype>
@@ -13,21 +11,17 @@ namespace {
 constexpr std::size_t kMinPasswordLength = 12;
 constexpr std::size_t kMaxPasswordLength = 128;
 constexpr std::size_t kMaxLoginLength = 64;
-// Больше трёх одинаковых символов подряд запрещено.
+
 constexpr std::size_t kMaxRunLength = 3;
 constexpr char kFieldSeparator = ';';
 constexpr std::string_view kSpecialSymbols = "!@#$%^&*()-_=+[]{}:,.<>/?|~";
 constexpr std::string_view kSitePrefix = "https://";
 constexpr std::string_view kTrimSet = " \t\r\n";
 
-// Проверяет, входит ли символ в набор спецсимволов политики.
-// symbol - проверяемый символ; возвращает true, если символ спецсимвол.
 bool isSpecialSymbol(char symbol) {
     return kSpecialSymbols.find(symbol) != std::string_view::npos;
 }
 
-// Удаляет пробельные символы в начале и в конце строки.
-// text - исходная строка; возвращает копию без пробельных символов по краям.
 std::string trimWhitespace(const std::string& text) {
     const std::size_t first = text.find_first_not_of(kTrimSet);
     if (first == std::string::npos) {
@@ -37,8 +31,6 @@ std::string trimWhitespace(const std::string& text) {
     return text.substr(first, last - first + 1);
 }
 
-// Ищет в строке цепочку одинаковых символов длиннее kMaxRunLength.
-// text - проверяемая строка; возвращает true, если такая цепочка найдена.
 bool hasLongRun(const std::string& text) {
     std::size_t run = 0;
     for (std::size_t index = 0; index < text.size(); ++index) {
@@ -51,7 +43,7 @@ bool hasLongRun(const std::string& text) {
     return false;
 }
 
-}  // namespace
+}
 
 std::string validatePassword(const std::string& password) {
     if (password.size() < kMinPasswordLength) {
@@ -145,4 +137,4 @@ std::optional<CredentialRecord> parseRecordLine(const std::string& line,
     return record;
 }
 
-}  // namespace credpolicy
+}

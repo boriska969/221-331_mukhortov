@@ -1,2 +1,2 @@
-  table_app.c
-  table_app.vcxproj -> C:\Users\boris\Documents\Codex\2026-10-07\new-chat\outputs\LR3\build\bin\table_app.exe
+﻿  table_app.c
+  table_app.vcxproj -> C:\Users\boris\Downloads\Desktop\221-331_Mukhortov\LR3\build\bin\table_app.exe

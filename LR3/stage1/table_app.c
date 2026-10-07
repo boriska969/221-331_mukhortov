@@ -1,18 +1,8 @@
-/* table_app.c
- * ЛР3, этап 1: незащищённое консольное приложение с табличным хранилищем.
- * Номер строки передаётся в командной строке. Если строки с таким номером нет,
- * выводится предупреждение. Эта версия используется как эталон для проверки
- * версии, которая работает внутри анклава (этапы 2-3).
- *
- * Использование: table_app <номер строки>
- */
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <limits.h>
 
-/* Имитация защищаемого хранилища: учётные записи в виде строк "логин;пароль".
- * Записи выдуманные. */
 static const char* const kTable[] = {
     "alice.morgan;Vq7#mLx2!tRp",
     "bkaramov;Krt9$wYe4@Lzn",
@@ -23,8 +13,6 @@ static const char* const kTable[] = {
 
 #define TABLE_ROWS ((int)(sizeof kTable / sizeof kTable[0]))
 
-/* Печатает строку таблицы с номером row (нумерация с нуля).
- * Возвращает 0, если строка найдена, иначе -1 (с предупреждением). */
 static int print_row(int row)
 {
     if (row < 0 || row >= TABLE_ROWS) {
@@ -35,8 +23,6 @@ static int print_row(int row)
     return 0;
 }
 
-/* Точка входа. Возвращает 0 при успешной печати строки, 1 - при ошибке аргументов или
- * отсутствии строки. */
 int main(int argc, char* argv[])
 {
     char* end = NULL;

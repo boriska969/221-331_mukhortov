@@ -1,6 +1,10 @@
-  Generate enclave test key
+﻿  Generate enclave test key
+  Creating trusted proxy/bridge routines
   enclave.c
-  Enclave.vcxproj -> C:\Users\boris\Documents\Codex\2026-10-07\new-chat\outputs\LR3\build\bin\Enclave.dll
+  Enclave_t.c
+  Создание кода...
+     Создается библиотека C:\Users\boris\Downloads\Desktop\221-331_Mukhortov\LR3\build\bin\Enclave.lib и объект C:\Users\boris\Downloads\Desktop\221-331_Mukhortov\LR3\build\bin\Enclave.exp
+  Enclave.vcxproj -> C:\Users\boris\Downloads\Desktop\221-331_Mukhortov\LR3\build\bin\Enclave.dll
   sign the enclave
   The required memory is 0x17a000.
   Succeed.
@@ -15,5 +19,8 @@
       <MiscSelect>0</MiscSelect>
       <MiscMask>0xFFFFFFFF</MiscMask>
   </EnclaveConfiguration>
+  Creating untrusted proxy/bridge routines
   app.c
-  app.vcxproj -> C:\Users\boris\Documents\Codex\2026-10-07\new-chat\outputs\LR3\build\bin\app.exe
+  Enclave_u.c
+  Создание кода...
+  app.vcxproj -> C:\Users\boris\Downloads\Desktop\221-331_Mukhortov\LR3\build\bin\app.exe

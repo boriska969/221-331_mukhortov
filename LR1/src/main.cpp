@@ -1,8 +1,3 @@
-// main.cpp
-// PassManager (ЛР1): графическое приложение Windows для хранения учётных записей.
-// Экран 1 - ввод пин-кода. Экран 2 - список записей с поиском по адресу сайта.
-// Логин и пароль в списке показаны масками. Чтобы скопировать значение в буфер обмена,
-// нужно выбрать запись и снова ввести пин-код: расшифровка выполняется по требованию.
 #include <windows.h>
 #include <commctrl.h>
 
@@ -32,7 +27,6 @@ constexpr wchar_t kVaultFileName[] = L"credentials.bin";
 constexpr wchar_t kMaskedValue[] = L"••••••••";
 constexpr std::size_t kMinPinLength = 4;
 
-// Идентификаторы дочерних элементов и пунктов контекстного меню.
 enum ControlId : int {
     IdUnlockLabel = 101,
     IdPinEdit,
@@ -46,7 +40,6 @@ enum ControlId : int {
 
 enum class Screen { Unlock, List };
 
-// Действие, которое выполнится после успешного ввода пин-кода.
 enum class PendingAction { OpenVault, RevealLogin, RevealPassword };
 
 struct AppState {
@@ -56,7 +49,7 @@ struct AppState {
     Screen screen = Screen::Unlock;
     PendingAction pending = PendingAction::OpenVault;
     std::size_t pendingIndex = 0;
-    bool locked = false;  // true после обнаружения атаки: ввод пин-кода заблокирован
+    bool locked = false;
 
     HFONT font = nullptr;
     HWND unlockLabel = nullptr;
@@ -70,12 +63,10 @@ struct AppState {
 
 LRESULT CALLBACK PinEditProc(HWND edit, UINT message, WPARAM wParam, LPARAM lParam);
 
-// Преобразует идентификатор элемента в значение HMENU, как того требует CreateWindowEx.
 HMENU controlId(int id) {
     return reinterpret_cast<HMENU>(static_cast<INT_PTR>(id));
 }
 
-// Переводит широкую строку UTF-16 в UTF-8.
 std::string toUtf8(const std::wstring& text) {
     if (text.empty()) {
         return std::string();
@@ -88,7 +79,6 @@ std::string toUtf8(const std::wstring& text) {
     return result;
 }
 
-// Переводит строку UTF-8 в широкую строку UTF-16 для отображения и буфера обмена.
 std::wstring fromUtf8(const std::string& text) {
     if (text.empty()) {
         return std::wstring();
@@ -100,7 +90,6 @@ std::wstring fromUtf8(const std::string& text) {
     return result;
 }
 
-// Возвращает текст элемента управления.
 std::wstring windowText(HWND window) {
     const int length = GetWindowTextLengthW(window);
     std::vector<wchar_t> buffer(static_cast<std::size_t>(length) + 1, L'\0');
@@ -108,23 +97,18 @@ std::wstring windowText(HWND window) {
     return std::wstring(buffer.data());
 }
 
-// Приводит строку к нижнему регистру (только ASCII), чтобы поиск не зависел от регистра.
 std::string toLowerAscii(std::string text) {
     std::transform(text.begin(), text.end(), text.begin(),
                    [](unsigned char symbol) { return static_cast<char>(std::tolower(symbol)); });
     return text;
 }
 
-// Возвращает каталог, в котором находится исполняемый файл приложения.
 std::filesystem::path executableDirectory() {
     std::vector<wchar_t> buffer(32768, L'\0');
     const DWORD length = GetModuleFileNameW(nullptr, buffer.data(), static_cast<DWORD>(buffer.size()));
     return std::filesystem::path(std::wstring(buffer.data(), length)).parent_path();
 }
 
-// Показывает нужный экран и скрывает элементы другого.
-// state  - состояние приложения;
-// screen - экран, который нужно показать.
 void showScreen(AppState& state, Screen screen) {
     state.screen = screen;
     const bool unlock = (screen == Screen::Unlock);
@@ -136,20 +120,16 @@ void showScreen(AppState& state, Screen screen) {
     }
 }
 
-// Выводит предупреждение под полем ввода пин-кода.
 void setWarning(AppState& state, const std::wstring& text) {
     SetWindowTextW(state.warningLabel, text.c_str());
 }
 
-// Адаптивная раскладка: элементы подстраиваются под текущий размер окна.
-// window - главное окно; state - состояние приложения.
 void layoutControls(HWND window, const AppState& state) {
     RECT client{};
     GetClientRect(window, &client);
     const int width = client.right - client.left;
     const int height = client.bottom - client.top;
 
-    // Экран ввода пин-кода: всё выравнивается по центру окна.
     const int editWidth = std::min(320, std::max(160, width - 80));
     const int editLeft = (width - editWidth) / 2;
     const int top = std::max(40, height / 2 - 80);
@@ -158,12 +138,10 @@ void layoutControls(HWND window, const AppState& state) {
     MoveWindow(state.unlockButton, (width - 140) / 2, top + 74, 140, 30, TRUE);
     MoveWindow(state.warningLabel, 20, top + 120, width - 40, 40, TRUE);
 
-    // Экран списка: строка поиска на всю ширину, список занимает оставшуюся область.
     MoveWindow(state.searchEdit, 8, 8, width - 16, 26, TRUE);
     MoveWindow(state.entryList, 8, 42, width - 16, std::max(0, height - 50), TRUE);
 }
 
-// Добавляет столбец в список записей.
 void addColumn(HWND list, int index, int width, const wchar_t* title) {
     LVCOLUMNW column{};
     column.mask = LVCF_TEXT | LVCF_WIDTH | LVCF_SUBITEM;
@@ -173,8 +151,6 @@ void addColumn(HWND list, int index, int width, const wchar_t* title) {
     ListView_InsertColumn(list, index, &column);
 }
 
-// Создаёт элементы управления главного окна и подменяет обработчик поля пин-кода.
-// window - главное окно; state - состояние приложения.
 void createControls(HWND window, AppState& state) {
     HINSTANCE instance = GetModuleHandleW(nullptr);
     state.font = static_cast<HFONT>(GetStockObject(DEFAULT_GUI_FONT));
@@ -211,8 +187,6 @@ void createControls(HWND window, AppState& state) {
     showScreen(state, Screen::Unlock);
 }
 
-// Заполняет список записей. Поле поиска сужает список по адресу сайта.
-// Логин и пароль всегда показываются масками. Индекс записи хранится в lParam строки.
 void populateList(AppState& state) {
     const std::string filter = toLowerAscii(toUtf8(windowText(state.searchEdit)));
     ListView_DeleteAllItems(state.entryList);
@@ -235,9 +209,6 @@ void populateList(AppState& state) {
     }
 }
 
-// Возвращает индекс записи, выбранной в списке.
-// state - состояние приложения; index - сюда записывается индекс записи в хранилище.
-// Возвращает false, если ничего не выбрано.
 bool selectedEntryIndex(const AppState& state, std::size_t& index) {
     const int row = ListView_GetNextItem(state.entryList, -1, LVNI_SELECTED);
     if (row < 0) {
@@ -251,9 +222,6 @@ bool selectedEntryIndex(const AppState& state, std::size_t& index) {
     return true;
 }
 
-// Копирует текст в буфер обмена Windows (CF_UNICODETEXT).
-// owner - окно-владелец буфера; utf8Text - копируемое значение.
-// Возвращает true, если данные переданы в буфер обмена.
 bool copyToClipboard(HWND owner, const std::string& utf8Text) {
     std::wstring text = fromUtf8(utf8Text);
     const std::size_t bytes = (text.size() + 1) * sizeof(wchar_t);
@@ -279,8 +247,6 @@ bool copyToClipboard(HWND owner, const std::string& utf8Text) {
     return stored;
 }
 
-// Блокирует ввод пин-кода и показывает предупреждение об атаке.
-// window - главное окно; state - состояние приложения; reason - описание обнаруженной атаки.
 void lockForAttack(HWND window, AppState& state, const std::wstring& reason) {
     state.locked = true;
     EnableWindow(state.pinEdit, FALSE);
@@ -292,8 +258,6 @@ void lockForAttack(HWND window, AppState& state, const std::wstring& reason) {
                 L"Предупреждение безопасности", MB_OK | MB_ICONWARNING);
 }
 
-// Проверки целостности до ввода пин-кода: отладчик (если включён) и контрольная сумма .text.
-// window - главное окно; state - состояние приложения.
 void runStartupChecks(HWND window, AppState& state) {
 #if LR1_CHECK_IS_DEBUGGER_PRESENT
     if (lr1::isDebuggerAttached()) {
@@ -309,8 +273,6 @@ void runStartupChecks(HWND window, AppState& state) {
     }
 }
 
-// Переводит экран в режим ввода пин-кода для расшифровки выбранного поля записи.
-// state      - состояние приложения; entryIndex - индекс записи; field - логин или пароль.
 void beginReveal(AppState& state, std::size_t entryIndex, Field field) {
     if (state.locked) {
         return;
@@ -325,8 +287,6 @@ void beginReveal(AppState& state, std::size_t entryIndex, Field field) {
     SetFocus(state.pinEdit);
 }
 
-// Отменяет расшифровку и возвращает экран списка записей.
-// state - состояние приложения.
 void cancelReveal(AppState& state) {
     SetWindowTextW(state.pinEdit, L"");
     SetWindowTextW(state.window, L"Учётные данные");
@@ -335,8 +295,6 @@ void cancelReveal(AppState& state) {
     SetFocus(state.entryList);
 }
 
-// Обрабатывает нажатие кнопки "Войти": открывает хранилище или расшифровывает выбранное поле.
-// window - главное окно; state - состояние приложения.
 void submitPin(HWND window, AppState& state) {
     if (state.locked) {
         return;
@@ -366,7 +324,6 @@ void submitPin(HWND window, AppState& state) {
         return;
     }
 
-    // Повторный ввод пин-кода: расшифровка слоя 2 только выбранного поля.
     const Field field = (state.pending == PendingAction::RevealLogin) ? Field::Login : Field::Password;
     std::string value;
     const bool revealed = state.vault.reveal(state.pendingIndex, field, pin, value);
@@ -388,8 +345,6 @@ void submitPin(HWND window, AppState& state) {
     }
 }
 
-// Показывает контекстное меню для выбранной записи.
-// window - главное окно; state - состояние приложения.
 void showEntryMenu(HWND window, const AppState& state) {
     std::size_t index = 0;
     if (!selectedEntryIndex(state, index)) {
@@ -405,8 +360,6 @@ void showEntryMenu(HWND window, const AppState& state) {
     DestroyMenu(menu);
 }
 
-// Обрабатывает команды от элементов управления и меню.
-// window - главное окно; state - состояние; id - идентификатор; notification - код уведомления.
 void handleCommand(HWND window, AppState& state, int id, int notification) {
     switch (id) {
     case IdUnlockButton:
@@ -432,9 +385,6 @@ void handleCommand(HWND window, AppState& state, int id, int notification) {
     }
 }
 
-// Обрабатывает уведомления списка записей.
-// Двойной щелчок и Enter запрашивают пароль; Ctrl+Enter запрашивает логин; правая кнопка - меню.
-// window - главное окно; state - состояние; header - заголовок уведомления.
 void handleListNotify(HWND window, AppState& state, const NMHDR* header) {
     switch (header->code) {
     case NM_DBLCLK:
@@ -455,7 +405,6 @@ void handleListNotify(HWND window, AppState& state, const NMHDR* header) {
     }
 }
 
-// Подменённый обработчик поля пин-кода: Enter нажимает кнопку, Esc отменяет расшифровку.
 LRESULT CALLBACK PinEditProc(HWND edit, UINT message, WPARAM wParam, LPARAM lParam) {
     HWND window = GetParent(edit);
     auto* state = reinterpret_cast<AppState*>(GetWindowLongPtrW(window, GWLP_USERDATA));
@@ -463,7 +412,7 @@ LRESULT CALLBACK PinEditProc(HWND edit, UINT message, WPARAM wParam, LPARAM lPar
         return DefWindowProcW(edit, message, wParam, lParam);
     }
     if (message == WM_CHAR && wParam == VK_RETURN) {
-        return 0;  // не даём полю издавать звуковой сигнал на Enter
+        return 0;
     }
     if (message == WM_KEYDOWN && wParam == VK_RETURN) {
         SendMessageW(window, WM_COMMAND, MAKEWPARAM(IdUnlockButton, BN_CLICKED),
@@ -478,7 +427,6 @@ LRESULT CALLBACK PinEditProc(HWND edit, UINT message, WPARAM wParam, LPARAM lPar
     return CallWindowProcW(state->originalPinEditProc, edit, message, wParam, lParam);
 }
 
-// Оконная процедура главного окна.
 LRESULT CALLBACK MainWindowProc(HWND window, UINT message, WPARAM wParam, LPARAM lParam) {
     auto* state = reinterpret_cast<AppState*>(GetWindowLongPtrW(window, GWLP_USERDATA));
     switch (message) {
@@ -519,10 +467,9 @@ LRESULT CALLBACK MainWindowProc(HWND window, UINT message, WPARAM wParam, LPARAM
     return DefWindowProcW(window, message, wParam, lParam);
 }
 
-}  // namespace
+}
 
-// Точка входа приложения PassManager.
-int WINAPI wWinMain(HINSTANCE instance, HINSTANCE /*previousInstance*/, PWSTR /*commandLine*/,
+int WINAPI wWinMain(HINSTANCE instance, HINSTANCE , PWSTR ,
                     int showCommand) {
     INITCOMMONCONTROLSEX controls{sizeof(controls), ICC_LISTVIEW_CLASSES};
     InitCommonControlsEx(&controls);

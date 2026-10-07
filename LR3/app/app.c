@@ -1,9 +1,3 @@
-/* app.c
- * Клиентское приложение ЛР3 (этап 3): неподготовленная (незащищённая) часть.
- * Создаёт анклав, запрашивает строку таблицы по номеру, печатает её и выгружает анклав.
- *
- * Использование: app <номер строки>
- */
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
@@ -13,14 +7,11 @@
 #include <tchar.h>
 
 #include "sgx_urts.h"
-#include "Enclave_u.h" /* сгенерирован sgx_edger8r по Enclave.edl */
+#include "Enclave_u.h"
 
 #define ENCLAVE_FILE _T("Enclave.signed.dll")
 #define ROW_BUFFER_SIZE 128
 
-/* Точка входа клиентского приложения.
- * argc, argv - аргументы командной строки; argv[1] - номер строки таблицы.
- * Возвращает 0 при успехе, 1 - при ошибке. */
 int main(int argc, char* argv[])
 {
     sgx_enclave_id_t enclaveId = 0;
@@ -47,8 +38,6 @@ int main(int argc, char* argv[])
         return 1;
     }
 
-    /* Создание анклава; SGX_DEBUG_FLAG используется для учебной сборки Simulation. */
-    /* Resolve the enclave next to app.exe, independently of the working directory. */
     pathLength = GetModuleFileNameA(NULL, enclavePath, sizeof enclavePath);
     if (!pathLength || pathLength >= sizeof enclavePath) {
         printf("ERROR: cannot locate executable directory\n");
@@ -75,7 +64,6 @@ int main(int argc, char* argv[])
         printf("row %ld: %s\n", rowNumber, row);
     }
 
-    /* Выгрузка анклава перед завершением приложения. */
     if (SGX_SUCCESS != sgx_destroy_enclave(enclaveId)) {
         return 1;
     }

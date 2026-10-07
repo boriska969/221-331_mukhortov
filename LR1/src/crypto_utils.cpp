@@ -1,5 +1,3 @@
-// crypto_utils.cpp
-// Реализация криптографических примитивов ЛР1 поверх OpenSSL 3 (API EVP).
 #include "crypto_utils.hpp"
 
 #include <openssl/crypto.h>
@@ -11,13 +9,12 @@
 namespace lr1 {
 namespace {
 
-// Освобождает контекст шифрования EVP при выходе из области видимости.
 struct CipherContextDeleter {
     void operator()(EVP_CIPHER_CTX* context) const { EVP_CIPHER_CTX_free(context); }
 };
 using CipherContext = std::unique_ptr<EVP_CIPHER_CTX, CipherContextDeleter>;
 
-}  // namespace
+}
 
 Bytes deriveKey(const std::string& pin, const Bytes& salt) {
     Bytes key(kKeySize);
@@ -61,7 +58,6 @@ bool decryptCbcStreaming(const Bytes& key, const Bytes& iv, std::istream& input,
         return false;
     }
 
-    // Цикл по блокам файла: каждый прочитанный кусок передаётся в EVP_DecryptUpdate.
     Bytes inputBlock(kReadBlockSize);
     Bytes outputBlock(kReadBlockSize + EVP_MAX_BLOCK_LENGTH);
     bool ok = true;
@@ -83,7 +79,6 @@ bool decryptCbcStreaming(const Bytes& key, const Bytes& iv, std::istream& input,
         OPENSSL_cleanse(outputBlock.data(), outputBlock.size());
     }
 
-    // Финальный блок содержит и проверяет паддинг PKCS#7.
     if (ok) {
         unsigned char tail[EVP_MAX_BLOCK_LENGTH] = {};
         int tailLength = 0;
@@ -172,7 +167,7 @@ bool decryptGcm(const Bytes& key, const Bytes& sealed, std::string& plainOut) {
     }
     unsigned char scratch[EVP_MAX_BLOCK_LENGTH] = {};
     int finalLength = 0;
-    // Проверка тега: при неверном ключе EVP_DecryptFinal_ex возвращает ошибку.
+
     const bool authentic = EVP_DecryptFinal_ex(context.get(), scratch, &finalLength) == 1;
     OPENSSL_cleanse(scratch, sizeof(scratch));
     if (!authentic) {
@@ -211,7 +206,7 @@ bool base64Decode(const std::string& text, Bytes& out) {
     if (decoded < 0) {
         return false;
     }
-    // EVP_DecodeBlock включает в результат байты-заполнители '=', их нужно отбросить.
+
     std::size_t padding = 0;
     if (text.back() == '=') {
         ++padding;
@@ -263,4 +258,4 @@ void wipe(Bytes& bytes) {
     bytes.clear();
 }
 
-}  // namespace lr1
+}

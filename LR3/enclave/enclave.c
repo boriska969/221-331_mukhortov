@@ -1,14 +1,7 @@
-/* enclave.c
- * Доверенная часть ЛР3: таблица учётных записей и функция выдачи строки внутри анклава Intel SGX.
- *
- * Условность лабораторной работы: записи объявлены статически, поэтому они видны в
- * файле анклава при реверс-инжиниринге (см. theory_answers.md).
- */
 #include "Enclave_t.h"
 #include <string.h>
 #include <stddef.h>
 
-/* Таблица, которая хранится внутри анклава (та же, что в этапе 1). */
 static const char* const kEnclaveTable[] = {
     "alice.morgan;Vq7#mLx2!tRp",
     "bkaramov;Krt9$wYe4@Lzn",
@@ -19,11 +12,6 @@ static const char* const kEnclaveTable[] = {
 
 #define ENCLAVE_TABLE_ROWS ((int)(sizeof kEnclaveTable / sizeof kEnclaveTable[0]))
 
-/* ECALL: копирует строку таблицы с номером row в буфер buf вызывающей стороны.
- * row     - номер строки (с нуля);
- * buf     - буфер для результата (выходной параметр, размер buf_len);
- * buf_len - размер буфера в байтах.
- * Возвращает 0, если строка найдена и скопирована; -1, если строки нет или буфер мал. */
 int ecall_get_row(int row, char* buf, size_t buf_len)
 {
     size_t length;

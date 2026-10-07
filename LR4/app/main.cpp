@@ -1,6 +1,3 @@
-// main.cpp
-// Консольное приложение credcheck: читает файл с учётными записями и печатает
-// результат разбора и проверки каждой строки. Пароли в выводе не показываются.
 #include <cstddef>
 #include <fstream>
 #include <iostream>
@@ -10,15 +7,10 @@
 
 namespace {
 
-// Формирует маску пароля: по одной звёздочке на каждый символ пароля.
-// password - исходный пароль; возвращает строку из звёздочек той же длины.
 std::string maskPassword(const std::string& password) {
     return std::string(password.size(), '*');
 }
 
-// Обрабатывает поток записей и печатает результат для каждой непустой строки.
-// input - входной поток, одна учётная запись на строку;
-// возвращает количество строк, не прошедших разбор или проверку политики.
 std::size_t processStream(std::istream& input) {
     std::size_t problems = 0;
     std::string line;
@@ -51,12 +43,8 @@ std::size_t processStream(std::istream& input) {
     return problems;
 }
 
-}  // namespace
+}
 
-// Точка входа.
-// argc, argv - аргументы командной строки; argv[1] - путь к файлу с записями,
-// без аргумента читается стандартный ввод.
-// Возвращает 0 после обработки, 2 - если файл не удалось открыть.
 int main(int argc, char* argv[]) {
     if (argc < 2) {
         processStream(std::cin);

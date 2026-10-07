@@ -1,5 +1,3 @@
-// credential_vault.cpp
-// Реализация хранилища учётных записей: загрузка файла, слой 1 и слой 2 шифрования.
 #include "credential_vault.hpp"
 
 #include <cstring>
@@ -10,11 +8,6 @@
 namespace lr1 {
 namespace {
 
-// Читает заголовок файла: магическая строка, соль слоя 1 и IV слоя 1.
-// file   - открытый бинарный поток;
-// salt   - сюда записывается соль PBKDF2;
-// iv     - сюда записывается вектор инициализации CBC.
-// Возвращает false, если заголовок неполный или магическая строка не совпадает.
 bool readHeader(std::istream& file, Bytes& salt, Bytes& iv) {
     char magic[kFileMagicSize] = {};
     file.read(magic, static_cast<std::streamsize>(kFileMagicSize));
@@ -32,7 +25,6 @@ bool readHeader(std::istream& file, Bytes& salt, Bytes& iv) {
     return file.gcount() == static_cast<std::streamsize>(iv.size());
 }
 
-// Возвращает строку из JSON-объекта или пустую строку, если поля нет или оно не строка.
 std::string stringField(const nlohmann::json& object, const char* name) {
     const auto found = object.find(name);
     if (found == object.end() || !found->is_string()) {
@@ -41,7 +33,7 @@ std::string stringField(const nlohmann::json& object, const char* name) {
     return found->get<std::string>();
 }
 
-}  // namespace
+}
 
 bool CredentialVault::load(const std::filesystem::path& path, const std::string& pin, std::string& error) {
     error.clear();
@@ -59,7 +51,6 @@ bool CredentialVault::load(const std::filesystem::path& path, const std::string&
         return false;
     }
 
-    // Слой 1: ключ выводится из пин-кода, файл расшифровывается блоками в памяти.
     Bytes key = deriveKey(pin, salt);
     std::string plainJson;
     const bool decrypted = !key.empty() && decryptCbcStreaming(key, iv, file, plainJson);
@@ -69,7 +60,6 @@ bool CredentialVault::load(const std::filesystem::path& path, const std::string&
         return false;
     }
 
-    // Неверный пин-код даёт мусор после расшифровки, поэтому JSON служит проверкой пин-кода.
     nlohmann::json document = nlohmann::json::parse(plainJson, nullptr, false);
     wipe(plainJson);
     if (document.is_discarded() || !document.is_object() ||
@@ -112,7 +102,7 @@ bool CredentialVault::reveal(std::size_t index, Field field, const std::string& 
     if (index >= entries_.size()) {
         return false;
     }
-    // Слой 2: ключ выводится из того же пин-кода, но с отдельной солью.
+
     Bytes key = deriveKey(pin, layer2Salt_);
     if (key.empty()) {
         return false;
@@ -137,4 +127,4 @@ void CredentialVault::clear() {
     wipe(layer2Salt_);
 }
 
-}  // namespace lr1
+}

@@ -1,8 +1,3 @@
-// credential_tool.cpp
-// Утилита ЛР1 для подготовки и проверки файла учётных данных.
-//   CredentialTool create <пин-код> <файл.bin>  - создаёт файл с 12 тестовыми записями;
-//   CredentialTool check  <пин-код> <файл.bin>  - расшифровывает файл и проверяет запись.
-// Тестовые записи выдуманные. Пин-код передаётся только в командной строке и нигде не сохраняется.
 #include <windows.h>
 
 #include <cstdint>
@@ -25,7 +20,6 @@ struct DemoRecord {
     const char* password;
 };
 
-// Выдуманные учётные записи для демонстрации. Реальные данные здесь не используются.
 const DemoRecord kDemoRecords[] = {
     {"https://mail.example.com", "alice.morgan", "Vq7#mLx2!tRp"},
     {"https://bank.example.org", "bkaramov", "Krt9$wYe4@Lzn"},
@@ -41,7 +35,6 @@ const DemoRecord kDemoRecords[] = {
     {"https://office.example.com", "admin.office", "Ty3*gHj6@Pxc"},
 };
 
-// Преобразует широкую строку аргумента командной строки в UTF-8.
 std::string toUtf8(const std::wstring& text) {
     if (text.empty()) {
         return std::string();
@@ -54,10 +47,6 @@ std::string toUtf8(const std::wstring& text) {
     return result;
 }
 
-// Создаёт файл учётных данных: слой 2 (GCM) для логинов и паролей, затем слой 1 (CBC) для всего файла.
-// pin        - пин-код, из которого выводятся оба ключа;
-// outputPath - путь к создаваемому файлу.
-// Возвращает true при успехе.
 bool createVaultFile(const std::string& pin, const std::filesystem::path& outputPath) {
     const lr1::Bytes layer2Salt = lr1::randomBytes(lr1::kSaltSize);
     lr1::Bytes layer2Key = lr1::deriveKey(pin, layer2Salt);
@@ -110,9 +99,6 @@ bool createVaultFile(const std::string& pin, const std::filesystem::path& output
     return output.good();
 }
 
-// Расшифровывает файл и выводит число записей и расшифрованный логин первой записи (слой 2).
-// pin       - пин-код; inputPath - путь к файлу.
-// Возвращает код завершения программы.
 int checkVaultFile(const std::string& pin, const std::filesystem::path& inputPath) {
     lr1::CredentialVault vault;
     std::string error;
@@ -133,11 +119,8 @@ int checkVaultFile(const std::string& pin, const std::filesystem::path& inputPat
     return 0;
 }
 
-}  // namespace
+}
 
-// Точка входа утилиты.
-// argv[1] - команда (create/check), argv[2] - пин-код, argv[3] - путь к файлу.
-// Возвращает 0 при успехе, 1 - при ошибке, 2 - при неверных аргументах.
 int wmain(int argc, wchar_t* argv[]) {
     if (argc != 4) {
         std::printf("usage: CredentialTool create|check <pin> <file>\n");

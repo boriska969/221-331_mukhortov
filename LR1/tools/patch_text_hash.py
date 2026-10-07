@@ -1,13 +1,3 @@
-#!/usr/bin/env python3
-"""Post-build step for PassManager.exe (LR1, pt. 5 of the task).
-
-Computes SHA-256 over the .text section of the linked PE image and writes the digest
-into the reference constant placed in .rdata after the marker "LR1TEXTHASH:".
-The patch touches only the .rdata data bytes; the code in .text is not modified,
-so the hash that is stored is exactly the hash that the program computes at run time.
-
-Usage: patch_text_hash.py <path-to-exe>
-"""
 import hashlib
 import struct
 import sys
@@ -18,7 +8,6 @@ HASH_LENGTH = 64
 
 
 def find_text_section(data: bytearray):
-    """Returns (virtual_size, raw_pointer) of the .text section of a PE32+ image."""
     e_lfanew = struct.unpack_from("<I", data, 0x3C)[0]
     if data[e_lfanew:e_lfanew + 4] != b"PE\0\0":
         raise SystemExit("not a PE image")
@@ -45,7 +34,6 @@ def main() -> int:
     virtual_size, raw_pointer = find_text_section(data)
     text_bytes = bytes(data[raw_pointer:raw_pointer + virtual_size])
     if len(text_bytes) < virtual_size:
-        # В памяти недостающие байты секции заполнены нулями.
         text_bytes += b"\0" * (virtual_size - len(text_bytes))
     digest = hashlib.sha256(text_bytes).hexdigest()
 

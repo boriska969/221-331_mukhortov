@@ -1,4 +1,4 @@
-> table_app.exe 0
+﻿> table_app.exe 0
 row 0: alice.morgan;Vq7#mLx2!tRp
 exit=0; PASS
 > table_app.exe 1
