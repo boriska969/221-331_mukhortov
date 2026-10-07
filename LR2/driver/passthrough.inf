@@ -1,7 +1,7 @@
 ; passthrough.inf
 ; INF-файл минифильтра ЛР2 (основан на шаблоне Windows Driver Samples passThrough).
 ; Изменения относительно шаблона: секции DefaultInstall/DefaultUninstall приведены к виду
-; из методички (с NTamd64), добавлен LegacyUninstall=1, задана высота (Altitude) 141000
+; из методички (с NTamd64), добавлен LegacyUninstall=1, задана высота (Altitude) 141050
 ; из диапазона "FSFilter Encryption" (140000-149999).
 
 [Version]
@@ -76,5 +76,5 @@ ServiceName        = "PassThrough"
 DiskId1            = "LR2 installation disk"
 DefaultInstance    = "PassThrough Encryption Instance"
 Instance1.Name     = "PassThrough Encryption Instance"
-Instance1.Altitude = "141000"
+Instance1.Altitude = "141050"
 Instance1.Flags    = 0x0
