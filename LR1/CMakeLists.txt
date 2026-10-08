@@ -20,6 +20,10 @@ find_path(LR1_OPENSSL_INCLUDE openssl/evp.h PATHS "${LR1_DEPS_ROOT}/include" NO_
 find_path(LR1_JSON_INCLUDE nlohmann/json.hpp PATHS "${LR1_DEPS_ROOT}/include" NO_DEFAULT_PATH REQUIRED)
 find_library(LR1_LIBCRYPTO NAMES libcrypto.dll.a libcrypto PATHS "${LR1_DEPS_ROOT}/lib" NO_DEFAULT_PATH REQUIRED)
 find_file(LR1_LIBCRYPTO_DLL NAMES libcrypto-3-x64.dll PATHS "${LR1_DEPS_ROOT}/bin" NO_DEFAULT_PATH REQUIRED)
+# Рантайм-библиотеки компилятора: без них exe не запустится на машине без MSYS2 в PATH.
+find_file(LR1_LIBSTDCXX_DLL NAMES libstdc++-6.dll PATHS "${LR1_DEPS_ROOT}/bin" NO_DEFAULT_PATH REQUIRED)
+find_file(LR1_LIBGCC_DLL NAMES libgcc_s_seh-1.dll PATHS "${LR1_DEPS_ROOT}/bin" NO_DEFAULT_PATH REQUIRED)
+find_file(LR1_LIBWINPTHREAD_DLL NAMES libwinpthread-1.dll PATHS "${LR1_DEPS_ROOT}/bin" NO_DEFAULT_PATH REQUIRED)
 find_package(Python3 COMPONENTS Interpreter REQUIRED)
 
 if(LR1_CHECK_IS_DEBUGGER_PRESENT)
@@ -70,10 +74,27 @@ add_custom_command(TARGET PassManager POST_BUILD
             "$<TARGET_FILE:PassManager>"
     VERBATIM)
 
-# DLL библиотеки OpenSSL и файл учётных данных копируются рядом с программой,
-# поэтому PATH менять не нужно (требование методички).
+# DLL библиотеки OpenSSL, рантайм компилятора (MinGW) и файл учётных данных копируются
+# рядом с программой, поэтому PATH менять не нужно (требование методички) и exe запускается
+# на любой машине без установленного MSYS2.
 add_custom_command(TARGET PassManager POST_BUILD
     COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${LR1_LIBCRYPTO_DLL}" "$<TARGET_FILE_DIR:PassManager>"
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${LR1_LIBSTDCXX_DLL}" "$<TARGET_FILE_DIR:PassManager>"
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${LR1_LIBGCC_DLL}" "$<TARGET_FILE_DIR:PassManager>"
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${LR1_LIBWINPTHREAD_DLL}" "$<TARGET_FILE_DIR:PassManager>"
     COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${CMAKE_CURRENT_SOURCE_DIR}/data/credentials.bin"
             "$<TARGET_FILE_DIR:PassManager>"
+    VERBATIM)
+
+add_custom_command(TARGET Protector POST_BUILD
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${LR1_LIBSTDCXX_DLL}" "$<TARGET_FILE_DIR:Protector>"
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${LR1_LIBGCC_DLL}" "$<TARGET_FILE_DIR:Protector>"
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${LR1_LIBWINPTHREAD_DLL}" "$<TARGET_FILE_DIR:Protector>"
+    VERBATIM)
+
+add_custom_command(TARGET CredentialTool POST_BUILD
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${LR1_LIBCRYPTO_DLL}" "$<TARGET_FILE_DIR:CredentialTool>"
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${LR1_LIBSTDCXX_DLL}" "$<TARGET_FILE_DIR:CredentialTool>"
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${LR1_LIBGCC_DLL}" "$<TARGET_FILE_DIR:CredentialTool>"
+    COMMAND "${CMAKE_COMMAND}" -E copy_if_different "${LR1_LIBWINPTHREAD_DLL}" "$<TARGET_FILE_DIR:CredentialTool>"
     VERBATIM)
